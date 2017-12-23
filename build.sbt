@@ -1,4 +1,4 @@
-import com.trueaccord.scalapb.{ScalaPbPlugin => PB}
+import com.trueaccord.scalapb.{ScalaPbPlugin ⇒ PB}
 import de.heikoseeberger.sbtheader.license.MIT
 import sbt.Keys._
 import sbt._
@@ -31,11 +31,17 @@ lazy val protobufSettings = PB.protobufSettings ++ Seq(
   version in PB.protobufConfig := "3.0.0-beta-3",
   // Protoc from jar
   PB.runProtoc in PB.protobufConfig := (args =>
-    com.github.os72.protocjar.Protoc.runProtoc("-v300" +: args.toArray))
+    com.github.os72.protocjar.Protoc.runProtoc("-v350" +: args.toArray))
 )
 
+//PB.targets in Compile := Seq(
+//  scalapb.gen() -> (sourceManaged in Compile).value
+//)
+
+resolvers += Resolver.bintrayRepo("cakesolutions", "maven")
+
 lazy val kafkaWire = (project in file("."))
-  .enablePlugins(AutomateHeaderPlugin)
+  .enablePlugins(AutomateHeaderPlugin/*, ProtobufPlugin*/)
   .settings(protobufSettings: _*)
   .settings(
     name := "kafka-wire",
@@ -48,13 +54,14 @@ lazy val kafkaWire = (project in file("."))
       "conf" -> MIT("2016", "Cake Solutions Limited", "#")
     ),
     libraryDependencies ++= Seq(
-    "com.lihaoyi" %% "autowire" % "0.2.5",
+    "com.lihaoyi" %% "autowire" % "0.2.6",
       "net.cakesolutions" %% "scala-kafka-client-akka" % "1.0.0",
       "net.cakesolutions" %% "scala-kafka-client-testkit" % "1.0.0" % Test,
       "com.typesafe.akka" %% "akka-testkit" % "2.5.8" % Test,
       "com.trueaccord.scalapb" %% "scalapb-runtime" % "0.6.6",
       "com.trueaccord.scalapb" %% "scalapb-runtime-grpc" % "0.6.6",
-      "com.google.protobuf" % "protobuf-java" % "3.4.0",
+      "com.google.protobuf" % "protobuf-java" % "3.5.0",
+      //"com.google.protobuf" % "protobuf-java" % (version in ProtobufConfig).value % ProtobufConfig.name,
       "ch.qos.logback" % "logback-classic" % "1.1.6",
       "org.scalatest" %% "scalatest" % "3.0.0" % Test
     ),

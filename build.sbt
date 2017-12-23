@@ -49,12 +49,12 @@ lazy val kafkaWire = (project in file("."))
     ),
     libraryDependencies ++= Seq(
     "com.lihaoyi" %% "autowire" % "0.2.5",
-      "net.cakesolutions" %% "scala-kafka-client-akka" % "0.10.0.0-RC1",
-      "net.cakesolutions" %% "scala-kafka-client-testkit" % "0.10.0.0-RC1" % Test,
-      "com.typesafe.akka" %% "akka-testkit" % "2.4.8" % Test,
-      "com.trueaccord.scalapb" %% "scalapb-runtime" % "0.5.32",
-      "com.trueaccord.scalapb" %% "scalapb-runtime-grpc" % "0.5.32",
-      "com.google.protobuf" % "protobuf-java" % "3.0.0-beta-3",
+      "net.cakesolutions" %% "scala-kafka-client-akka" % "1.0.0",
+      "net.cakesolutions" %% "scala-kafka-client-testkit" % "1.0.0" % Test,
+      "com.typesafe.akka" %% "akka-testkit" % "2.5.8" % Test,
+      "com.trueaccord.scalapb" %% "scalapb-runtime" % "0.6.6",
+      "com.trueaccord.scalapb" %% "scalapb-runtime-grpc" % "0.6.6",
+      "com.google.protobuf" % "protobuf-java" % "3.4.0",
       "ch.qos.logback" % "logback-classic" % "1.1.6",
       "org.scalatest" %% "scalatest" % "3.0.0" % Test
     ),

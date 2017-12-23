@@ -28,7 +28,7 @@ val jOptions = Seq(
 )
 
 lazy val protobufSettings = PB.protobufSettings ++ Seq(
-  version in PB.protobufConfig := "3.0.0-beta-3",
+  version in PB.protobufConfig := "3.5.0",
   // Protoc from jar
   PB.runProtoc in PB.protobufConfig := (args =>
     com.github.os72.protocjar.Protoc.runProtoc("-v350" +: args.toArray))
@@ -41,7 +41,7 @@ lazy val protobufSettings = PB.protobufSettings ++ Seq(
 resolvers += Resolver.bintrayRepo("cakesolutions", "maven")
 
 lazy val kafkaWire = (project in file("."))
-  .enablePlugins(AutomateHeaderPlugin/*, ProtobufPlugin*/)
+  .enablePlugins(AutomateHeaderPlugin)
   .settings(protobufSettings: _*)
   .settings(
     name := "kafka-wire",
@@ -60,8 +60,7 @@ lazy val kafkaWire = (project in file("."))
       "com.typesafe.akka" %% "akka-testkit" % "2.5.8" % Test,
       "com.trueaccord.scalapb" %% "scalapb-runtime" % "0.6.6",
       "com.trueaccord.scalapb" %% "scalapb-runtime-grpc" % "0.6.6",
-      "com.google.protobuf" % "protobuf-java" % "3.5.0",
-      //"com.google.protobuf" % "protobuf-java" % (version in ProtobufConfig).value % ProtobufConfig.name,
+      "com.google.protobuf" % "protobuf-java" % (version in PB.protobufConfig).value % PB.protobufConfig.name,
       "ch.qos.logback" % "logback-classic" % "1.1.6",
       "org.scalatest" %% "scalatest" % "3.0.0" % Test
     ),

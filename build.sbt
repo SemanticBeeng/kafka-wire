@@ -34,10 +34,6 @@ lazy val protobufSettings = PB.protobufSettings ++ Seq(
     com.github.os72.protocjar.Protoc.runProtoc("-v350" +: args.toArray))
 )
 
-//PB.targets in Compile := Seq(
-//  scalapb.gen() -> (sourceManaged in Compile).value
-//)
-
 resolvers += Resolver.bintrayRepo("cakesolutions", "maven")
 
 lazy val kafkaWire = (project in file("."))
